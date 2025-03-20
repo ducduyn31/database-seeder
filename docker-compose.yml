@@ -1,0 +1,57 @@
+version: '3.8'
+
+x-postgres-common: &postgres-common
+  image: postgres:latest
+  restart: always
+  environment:
+    POSTGRES_USER: shared_user
+    POSTGRES_PASSWORD: shared_password
+    POSTGRES_DB: shared_db
+  networks:
+    - postgres_network
+
+services:
+  postgres1:
+    <<: *postgres-common
+    container_name: postgres1
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db-config/postgres1/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+
+  postgres2:
+    <<: *postgres-common
+    container_name: postgres2
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./db-config/postgres2/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+
+  postgres3:
+    <<: *postgres-common
+    container_name: postgres3
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./db-config/postgres3/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres_network
+    volumes:
+      - ./db-config/pgadmin:/var/lib/pgadmin
+
+networks:
+  postgres_network:
+    driver: bridge

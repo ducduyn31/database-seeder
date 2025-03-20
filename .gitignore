@@ -1,0 +1,53 @@
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/vendor/
+/bin/
+/dbseeder
+
+# Go workspace file
+go.work
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Docker specific
+.docker/
+docker-compose.override.yml
+
+# Database specific
+db-config/pgadmin/sessions/
+db-config/pgadmin/storage/
+db-config/pgadmin/azurecredentialcache/
+db-config/pgadmin/pgadmin4.db
+*.log
+*.sql
+*.sqlite
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Compiled binaries
+main
